@@ -31,19 +31,13 @@ const MovieGenre = sequelize.define(
     sequelize,
     modelName: "MovieGenre",
     tableName: "movie_genre",
+    indexes: [
+      {
+        unique: true,
+        fields: ["movie_id", "genre_id"],
+      },
+    ],
   }
 );
-
-Genre.belongsToMany(Movie, {
-  through: MovieGenre,
-  foreignKey: "genre_id",
-  otherKey: "movie_id",
-});
-
-Movie.belongsToMany(Genre, {
-  through: MovieGenre,
-  foreignKey: "movie_id",
-  otherKey: "genre_id",
-});
 
 module.exports = MovieGenre;

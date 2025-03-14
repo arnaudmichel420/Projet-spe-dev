@@ -8,6 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
       },
       genre: {
         type: Sequelize.DataTypes.STRING,
@@ -16,10 +17,12 @@ module.exports = {
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn("now"),
       },
     });
   },

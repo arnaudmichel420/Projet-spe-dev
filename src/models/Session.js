@@ -3,8 +3,8 @@ const sequelize = require("../utils/sequelize");
 const Room = require("./Room");
 const Movie = require("./Movie");
 
-const Session = sequelize.define(
-  "session",
+class Session extends Model {}
+Session.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -30,6 +30,10 @@ const Session = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    end_time: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
     sequelize,
@@ -37,12 +41,5 @@ const Session = sequelize.define(
     tableName: "sessions",
   }
 );
-
-Session.hasOne(Room, {
-  foreignKey: "room_id",
-});
-Session.hasOne(Movie, {
-  foreignKey: "movie_id",
-});
 
 module.exports = Session;

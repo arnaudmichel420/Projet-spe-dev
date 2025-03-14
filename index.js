@@ -8,8 +8,6 @@ const cors = require("cors");
 const app = express();
 const router = express.Router();
 const sequelize = require("./src/utils/sequelize");
-const User = require("./src/models/User.js");
-const Movie = require("./src/models/Movie.js");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -29,28 +27,39 @@ app.listen(process.env.APP_PORT, () => {
   console.log(`Api listening at http://localhost:${process.env.APP_PORT}`);
 });
 
-// async function inserUser() {
-//   const user1 = new User({
-//     password: "test",
-//     email: "test@gmail.com",
-//     nom: "bob",
-//     prenom: "marley",
-//   });
+const Movie = require("./src/models/Movie");
+const Room = require("./src/models/Room");
+const Session = require("./src/models/Session");
+const MovieGenre = require("./src/models/MovieGenre");
+const Genre = require("./src/models/Genre");
+const Reservation = require("./src/models/Reservation");
+const User = require("./src/models/User");
 
-//   await user1.save();
-// }
-// async function inserMovie() {
-//   const movie = new Movie({
-//     title: "test",
-//     duration: 145,
-//     poster: "url",
-//     description: "lorem",
-//   });
+Movie.hasMany(Session, { foreignKey: "movie_id" });
+Session.belongsTo(Movie, { foreignKey: "movie_id" });
+Room.hasMany(Session, { foreignKey: "room_id" });
+Session.belongsTo(Room, { foreignKey: "room_id" });
+Genre.belongsToMany(Movie, {
+  through: MovieGenre,
+  foreignKey: "genre_id",
+  otherKey: "movie_id",
+});
 
-//   await movie.save();
-// }
-// inserUser();
-// inserMovie();
+Movie.belongsToMany(Genre, {
+  through: MovieGenre,
+  foreignKey: "movie_id",
+  otherKey: "genre_id",
+});
 
-// faire la commande avec les tables
-//repliquer les tables dans le fichier crée
+Session.hasMany(Reservation, {
+  foreignKey: "session_id",
+});
+Reservation.belongsTo(Session, {
+  foreignKey: "session_id",
+});
+Reservation.belongsTo(User, {
+  foreignKey: "user_id",
+});
+User.hasMany(Reservation, {
+  foreignKey: "user_id",
+});

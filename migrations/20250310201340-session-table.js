@@ -8,6 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
       },
       movie_id: {
         type: Sequelize.INTEGER,
@@ -15,6 +16,7 @@ module.exports = {
           model: "movies",
           key: "id",
         },
+        allowNull: false,
       },
       room_id: {
         type: Sequelize.INTEGER,
@@ -22,6 +24,7 @@ module.exports = {
           model: "rooms",
           key: "id",
         },
+        allowNull: false,
       },
       start_time: {
         type: Sequelize.DATE,
@@ -30,10 +33,12 @@ module.exports = {
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn("now"),
       },
     });
   },

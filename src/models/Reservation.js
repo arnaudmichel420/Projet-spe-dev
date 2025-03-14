@@ -45,11 +45,4 @@ Reservation.init(
   }
 );
 
-Reservation.hasOne(Session, {
-  foreignKey: "session_id",
-});
-Reservation.hasOne(User, {
-  foreignKey: "user_id",
-});
-
 module.exports = Reservation;

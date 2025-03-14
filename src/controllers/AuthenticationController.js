@@ -24,13 +24,20 @@ module.exports = function (app, router) {
       if (!req.body.password) {
         return res.status(400).send("Invalid Password");
       }
-
       if (!req.body.email) {
         return res.status(400).send("Invalid Email");
+      }
+      if (!req.body.nom) {
+        return res.status(400).send("Invalid Nom");
+      }
+      if (!req.body.prenom) {
+        return res.status(400).send("Invalid Prenom");
       }
       const user = await User.create({
         email: req.body.email,
         password: await bcrypt.hash(req.body.password, 8),
+        nom: req.body.nom,
+        prenom: req.body.prenom,
       });
       res.send(await authenticator.authenticate(user.email, req.body.password));
     } catch (e) {

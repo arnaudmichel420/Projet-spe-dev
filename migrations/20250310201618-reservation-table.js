@@ -8,6 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
       },
       user_id: {
         type: Sequelize.INTEGER,
@@ -15,6 +16,7 @@ module.exports = {
           model: "users",
           key: "id",
         },
+        allowNull: false,
       },
       session_id: {
         type: Sequelize.INTEGER,
@@ -22,6 +24,7 @@ module.exports = {
           model: "sessions",
           key: "id",
         },
+        allowNull: false,
       },
       rows_number: {
         type: Sequelize.INTEGER,
@@ -34,10 +37,12 @@ module.exports = {
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn("now"),
       },
     });
   },
